@@ -2,5 +2,10 @@
 MAX_LOGFILES: 10
 # Log file extension
 LOG_FILE_EXTENTSION: ".log"
-# Log file time stamp format
+# Log file timestamp format
 LOG_DATE_TIME_FORMAT: "%d%m%Y_%H%M%S"
+# Boto3 log level
+BOTO3_LOG_LEVEL: "boto3.resources"
+# S3 timestamp format
+BOTO3_DATE_TIME_FORMAT: "%d%m%Y_%H%M%S" #'%Y.%d.%m-%H.%M.%S.%f'
+

@@ -1,8 +1,10 @@
 import logging
 import os
 import yaml
-from boto import get_bucket, session
+import subprocess
+from boto import get_s3_bucket, session, download_s3_object
 from logger import logger
+from datetime import datetime
 
 
 def main():
@@ -20,9 +22,13 @@ def main():
             print(log_err)
             raise log_err
 
-        # Set environment variables from config file
+        # Set environment variables from secrets file
         os.environ["AWS_ACCESS_KEY_ID"] = secrets['AWS_ACCESS_KEY']
         os.environ["AWS_SECRET_ACCESS_KEY"] = secrets['AWS_SECRET_KEY']
+
+        # Set environment variables from config file
+        os.environ["BOTO3_LOG_LEVEL"] = conf['BOTO3_LOG_LEVEL']
+        os.environ["BOTO3_DATE_TIME_FORMAT"] = conf['BOTO3_DATE_TIME_FORMAT']
 
         # Start logger
         logger(conf['MAX_LOGFILES'], secrets['LOG_ROOT'],
@@ -39,10 +45,17 @@ def main():
         # Get s3 bucket
         logging.debug(
             "Getting bucket '%s'", secrets['S3_BUCKET'])
-        bucket = get_bucket(botosession, secrets['S3_BUCKET'])
-        bucket_name = bucket.name
+
+        bucket = get_s3_bucket(botosession, secrets['S3_BUCKET'])
+
         logging.debug(
-            "Successfully got s3 bucket '%s'", bucket_name)
+            "Successfully got s3 bucket '%s'", bucket.name)
+
+        # output_path = str(os.path.join(
+        #     secrets['DATA_ROOT'], now_formated)).format()
+
+        download_s3_object(
+            botosession, bucket, secrets['S3_KEY_PREFIX'], secrets['DATA_ROOT'])
 
     # Main error handler
     except Exception as err_main:
