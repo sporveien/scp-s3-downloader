@@ -1,11 +1,10 @@
-# scp-s3-uploader
+# scp-s3-downloader
 
 ## General description
 
-The Python script uses the [boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html) library to upload every file from a given path to an AWS S3 bucket.\
-Before uploading files to s3 the script moves files into a temporary folder to make sure the file is not being written to, which can be a problem in Windows.\
+The Python script uses the [boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html) library to download files from a given key of an AWS S3 bucket.\
 To be able to authenticate against AWS a secrets.yml file is required.\
-Even though a good rule of thumb is to never store any sensitive information in paths.. Just to be sure.. file paths are also set in the secrets.yml file.\
+Even though a good rule of thumb is to never store any sensitive information in paths.. Just to be sure.. file paths are set in the secrets.yml file.\
 Logging is configured in the config.yml as well as opt-in-out settings to suit different needs.\
 <br/>
 
