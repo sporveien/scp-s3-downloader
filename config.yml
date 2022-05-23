@@ -8,4 +8,6 @@ LOG_DATE_TIME_FORMAT: "%d%m%Y_%H%M%S"
 BOTO3_LOG_LEVEL: "boto3.resources"
 # S3 timestamp format
 BOTO3_DATE_TIME_FORMAT: "%d%m%Y_%H%M%S" #'%Y.%d.%m-%H.%M.%S.%f'
+# Include directory structure from S3 in downloaded files
+BOTO3_KEEP_DIRECTORY_STRUCTURE: false
 

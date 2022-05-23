@@ -55,7 +55,7 @@ def main():
         #     secrets['DATA_ROOT'], now_formated)).format()
 
         download_s3_object(
-            botosession, bucket, secrets['S3_KEY_PREFIX'], secrets['DATA_ROOT'])
+            botosession, bucket, secrets['S3_KEY_PREFIX'], secrets['DATA_ROOT'], conf['BOTO3_KEEP_DIRECTORY_STRUCTURE'])
 
     # Main error handler
     except Exception as err_main:

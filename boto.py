@@ -31,7 +31,7 @@ def get_s3_bucket(boto_session, s3_bucket):
         raise err_get_bucket
 
 
-def download_s3_object(boto_session, s3_bucket, s3_key_prefix, output_path):
+def download_s3_object(boto_session, s3_bucket, s3_key_prefix, output_path, include_dir_structure):
     download_timestamp = timestamp(
         environ["BOTO3_DATE_TIME_FORMAT"])
     for s3_object in s3_bucket.objects.all():
@@ -39,10 +39,13 @@ def download_s3_object(boto_session, s3_bucket, s3_key_prefix, output_path):
         obj = path.split(s3_object.key)[1]
         if key.startswith(s3_key_prefix) and obj:
             try:
-
-                print("Download: " + obj)
-                output_directory = path.join(
-                    output_path, download_timestamp)
+                if include_dir_structure:
+                    directories = path.split(key)[0]
+                    output_directory = path.join(
+                        output_path, download_timestamp, directories)
+                else:
+                    output_directory = path.join(
+                        output_path, download_timestamp)
 
                 # # Create directories if its not existing
                 if not path.exists(output_directory):
@@ -58,17 +61,19 @@ def download_s3_object(boto_session, s3_bucket, s3_key_prefix, output_path):
                 raise err_download
         elif s3_key_prefix == "*" and obj:
             try:
-                directories = path.split(key)[0]
-                output_directory = path.join(
-                    output_path, download_timestamp, directories)
+                if include_dir_structure:
+                    directories = path.split(key)[0]
+                    output_directory = path.join(
+                        output_path, download_timestamp, directories)
+                else:
+                    output_directory = path.join(
+                        output_path, download_timestamp)
 
                 if not path.exists(output_directory):
                     makedirs(output_directory)
 
-                print("TO 1: " + obj)
                 output_file = path.join(
                     output_directory, obj)
-                print("TO 2: " + output_file)
 
                 # # Download file
                 s3_bucket.download_file(key, output_file)
