@@ -1,0 +1,6 @@
+# Amount of log files to store before removing the oldest one
+MAX_LOGFILES: 10
+# Log file extension
+LOG_FILE_EXTENTSION: ".log"
+# Log file time stamp format
+LOG_DATE_TIME_FORMAT: "%d%m%Y_%H%M%S"
