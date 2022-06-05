@@ -11,6 +11,24 @@ if not getattr(__builtins__, "WindowsError", None):
         pass
 
 
+def get_file_creation_datetime(path):
+    try:
+        if operating_system() == "windows":
+            # file creation timestamp in float
+            c_time = os.path.getctime(path)
+            # convert creation timestamp into DateTime object
+            dt_c = datetime.fromtimestamp(c_time)
+            return dt_c
+        else:
+            stat = os.stat(path)
+            c_timestamp = stat.st_birthtime
+            c_time = datetime.fromtimestamp(c_timestamp)
+            return c_time
+    except Exception as err_get_file_creation_datetime:
+        traceback.print_stack()
+        raise err_get_file_creation_datetime
+
+
 def get_files(root_folder):
     try:
         all_files = []
@@ -23,6 +41,20 @@ def get_files(root_folder):
     except Exception as err_get_files:
         traceback.print_stack()
         raise err_get_files
+
+
+def get_subdirectories(root_folder):
+    try:
+        sub_directories = []
+        for file in os.listdir(root_folder):
+            file_path = os.path.join(root_folder, file)
+            print(file_path)
+            if os.path.isdir(file_path):
+                sub_directories.append(file_path)
+        return sub_directories
+    except Exception as get_directories:
+        traceback.print_stack()
+        raise get_directories
 
 
 def move_files(from_folder, to_folder):

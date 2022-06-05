@@ -4,6 +4,6 @@ if [[ "$1" ]];then
 else
    ROOT_DIR="test" 
 fi
-mkdir -p "${ROOT_DIR}" "${ROOT_DIR}/log" "${ROOT_DIR}/data" 
+mkdir -p "${ROOT_DIR}" "${ROOT_DIR}/log" "${ROOT_DIR}/data" "${ROOT_DIR}/archive" "${ROOT_DIR}/temp" 
 # Start python script
 python3 main.py
