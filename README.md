@@ -105,8 +105,8 @@ ARCHIVE_CONTAINER_TIMESTAMP_FORMAT: "%Y.%d.%m-%H.%M.%S.%f"
 ARCHIVE_CONTAINER_PREFIX: "pre_"
 # Archive container dir suffix
 ARCHIVE_CONTAINER_SUFFIX: "_suf"
-# Amount of hours to store transfered files in archive.
-ARCHIVE_RETENTION_TIME_HOURS: 1
+# Amount of hours to store transfered files in archive (1 Year: 8760, 1 Month: 730, 1 week: 168).
+ARCHIVE_RETENTION_TIME_HOURS: 730
 # Log file extension
 LOG_FILE_EXTENTSION: ".log"
 # Log file timestamp format
