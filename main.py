@@ -65,10 +65,9 @@ def main():
 
             archives = get_subdirectories(archive_root_path)
 
-            if conf["BOTO3_ONLY_DOWNLOAD_LATEST"]:
-                if len(archives) < 1:
-                    only_download_after_date = datetime(1900, 1, 1)
-                elif conf["BOTO3_ONLY_DOWNLOAD_LATEST"] == True:
+            if conf["BOTO3_ONLY_DOWNLOAD_LATEST"] and len(archives) > 0:
+                logging.debug("Configured to only download latest S3 objects compared to the latest archive")
+                if conf["BOTO3_ONLY_DOWNLOAD_LATEST"] == True:
                     latest_archive = max(archives, key=os.path.getctime)
                     only_download_after_date = get_file_creation_datetime(
                         latest_archive)
@@ -76,6 +75,7 @@ def main():
                     only_download_after_date = datetime.strptime(
                         conf["BOTO3_ONLY_DOWNLOAD_LATEST"])
             else:
+                logging.debug("No archives or configured to download all S3 objects")
                 only_download_after_date = False
 
         # Take No Action
