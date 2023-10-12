@@ -145,3 +145,9 @@ _log/*
 _log/*.log
 temp/*
 test/*
+
+# VScode
+.vscode
+
+# Snyk cache
+.dccache

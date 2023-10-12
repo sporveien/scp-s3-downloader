@@ -10,8 +10,6 @@ Even though a good rule of thumb is to never store any sensitive information in 
 Logging is configured in the config.yml as well as opt-in-out settings to suit different needs.\
 <br/>
 
-
-
 ## **Utilization**
 
 ---
@@ -19,54 +17,57 @@ Logging is configured in the config.yml as well as opt-in-out settings to suit d
 *Clone the [scp-s3-downloader](https://github.com/sporveien/scp-s3-downloader) Github repository to your local systems current location.*
 
 #### Git CLI
+
 ```git
 git clone https://github.com/sporveien/scp-s3-downloader.git
 ```
 
 #### API Call - Linux/MacOS
+
 ```bash
 curl -JLO  https://api.github.com/repos/sporveien/scp-s3-downloader/zipball
 unzip sporveien-scp-s3-uploader-%shaxxx%.zip
 ```
 
 #### API Call - Windows
+
 ```powershell
 $Response = Invoke-WebRequest -Uri https://api.github.com/repos/sporveien/scp-s3-uploader/zipball;
 $Filename = $Response.headers['content-disposition'].Split('=')[1];
 Set-Content -LiteralPath ".\$Filename" -Encoding byte -Value $Response.Content; 
 ```
 
-### **Requirements**
+## Requirements
 
-
-From local repository root, install packages from *requirements.txt* file
-
-```
-pip install -r requirements.txt
-```
-
+1. (*Optional*) Install Python virtual environment ([link here](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/))
+2. (*Optional*) Create virtual environment by running
+    - Linux/MacOS: `python3 -m venv .venv` from local repository root directory
+    - Windows: `py -m venv .venv` from local repository root directory
+2. (*Optional*) Activate virtual environment by running
+    - Linux/MacOS: `source .venv/bin/activate` from local repository root directory
+    - Windows: `.\.venv\Scripts\activate` from local repository root directory
+2. Install packages from *requirements.txt* file by running `pip install -r requirements.txt` from local repository root directory
 
 ### **Script variables**
 
 Before running the Python script, create a *secrets.yml* in the root directory of the local repository and assign the following variables.
 
-
 - *AWS_ACCESS_KEY*
-    - AWS Access Key ID, with access to the S3 bucket.
+  - AWS Access Key ID, with access to the S3 bucket.
 - *AWS_SECRET_KEY*
-    - AWS Access Secret, with access to the S3 bucket. 
+  - AWS Access Secret, with access to the S3 bucket.
 - *S3_BUCKET*
-    - The S3 bucket name
+  - The S3 bucket name
 - *S3_KEY_PREFIX*
-    - The S3 bucket key, set to "*" to download everything from the bucket (**should be used carefully**).
+  - The S3 bucket key, set to "*" to download everything from the bucket (**should be used carefully**).
 - *LOG_ROOT*
-    - The root path of script logging
+  - The root path of script logging
 - *DATA_ROOT*
-    - The root path of script data
+  - The root path of script data
 - *TEMP_ROOT*
-    - The root path of script logging
+  - The root path of script logging
 - *ARCHIVE_ROOT*
-    - The root path of script data
+  - The root path of script data
 
 ```yml
 # secrets.yml file example
@@ -123,8 +124,6 @@ BOTO3_USE_TIMESTAMP_CONTAINER: false
 BOTO3_ONLY_DOWNLOAD_LATEST: true
 ```
 
-
-
 ### **Trigger**
 
 #### **Initialization**
@@ -152,5 +151,3 @@ Run the *test.ps1* script to setup a test environment and run a quick test in yo
 ```powershell
 .\test.ps1
 ```
-
-
